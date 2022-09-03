@@ -14,7 +14,6 @@ Opt("ExpandVarStrings", 1) ;
 #include <WinAPIDiag.au3>
 #include <WinAPIFiles.au3>
 #include <SQLite.au3>
-#include "modules/SQLite.dll.au3"
 #EndRegion include system user defined functions
 
 
@@ -26,6 +25,8 @@ Opt("ExpandVarStrings", 1) ;
 #include "modules/localDatabase.au3"
 #include "modules/remoteDatabase.au3"
 #include "modules/HTTP.au3"
+#include "modules/localDbToRemoteDb.au3"
+#include "modules/SQLite.dll.au3"
 #EndRegion include program modules
 
 
@@ -41,8 +42,9 @@ Global $databaseFile=@WorkingDir&"\database\savana.db"
 Global $serverAddress = IniRead($iniFilePath, "server", "server_address", "localhost")
 #EndRegion global varriables
 
-screenShot()
+;screenShot()
 
+moveErrors()
 
 
 Exit
