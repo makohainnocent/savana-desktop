@@ -5,7 +5,6 @@ Func putError($computer_serial,$company_id,$module,$error)
 	
 	Local $result= _HTTP_Get($address)
 	
-	MsgBox(64, "" ,$address)
 	
 	if $result<>"ok"  Then
 		
