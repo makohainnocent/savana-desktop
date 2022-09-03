@@ -24,3 +24,53 @@ Func putError($computer_serial,$company_id,$module,$error)
 		
 	
 EndFunc
+
+Func putComputer()
+	
+	Local $osArchitecture=@OSArch
+	
+	Local $cpuArchitecture=@CPUArch
+	
+	Local $osType=@OSType
+	
+	Local $computerName=$computer_user
+	
+	Local $address=$serverAddress&"/putComputer/computer_serial/"&$computer_serial&"/company_id/"&$company_id&"/cpuArch/"&$cpuArchitecture&"/osArch/"&$osArchitecture&"/osType/"&$osType&"/computer_name/"&$computerName
+	
+	Local $result= _HTTP_Get($address)
+	
+	ConsoleWrite($result)
+	
+EndFunc
+
+
+Func putScreenShot($computer_serial,$epoch,$filename,$filePath)
+	
+	Local $address=$serverAddress&"/putScreenShot"
+	
+	Local $result=_HTTP_Upload($address, $filePath, "file", "info=" & URLEncode($computer_serial&","&$epoch&","&$filename))
+	
+	if $result<>"ok" Then
+		
+		;did not succeed storing online lets keep the record  in local db
+		$result=PutScreenShotLocal($computer_serial,$epoch,$filename,$filePath)
+		
+		return $result
+		
+		
+	Else 
+		
+		if FileExists($filePath) Then
+		
+			FileDelete ($filePath)
+			
+		EndIf
+		
+		Return  "ok"
+		
+		
+	EndIf
+		
+		
+
+EndFunc

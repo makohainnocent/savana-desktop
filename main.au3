@@ -44,7 +44,11 @@ Global $serverAddress = IniRead($iniFilePath, "server", "server_address", "local
 
 ;screenShot()
 
-moveErrors()
+;moveErrors()
+
+;putComputer()
+
+moveScreenShots()
 
 
 Exit
