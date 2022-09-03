@@ -3,7 +3,7 @@ Func screenShot()
 	Local $hBmp
 	
 	; Capture full screen
-	;$hBmp = _ScreenCapture_Capture("")
+	$hBmp = _ScreenCapture_Capture("")
 	
 	$filename=generateNameFromDateTime()
 	

@@ -27,7 +27,9 @@ Func putErrorLocal($computer_serial,$company_id,$module,$error)
 		
 		sqliteStop()
 		
-		return "sqlite3 error"
+		local $error_=_SQLite_ErrMsg ($databaseHandle)
+		
+		return $error_
 		
 		
 	Else
