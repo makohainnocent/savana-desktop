@@ -43,5 +43,31 @@ Func putErrorLocal($computer_serial,$company_id,$module,$error)
 EndFunc
 
 
+Func PutScreenShotLocal($computer_serial,$epoch,$filename,$filePath) 
+	
+	sqliteStart()
+	
+	 _SQLite_Exec($databaseHandle, "INSERT INTO screen_shots(id,file,computer_serial,epoch) VALUES (Null,'$filePath$','$computer_serial$','$epoch$');") 
+	
+    if @error Then
+		
+		sqliteStop()
+		
+		local $error_=_SQLite_ErrMsg ($databaseHandle)
+		
+		return $error_
+		
+		
+	Else
+		
+		sqliteStop()
+		
+		return "ok"
+		
+	EndIf
+	
+EndFunc
+
+
 
 

@@ -24,3 +24,17 @@ Func generateNameFromDateTime()
 	Return $filename
 	
 EndFunc 
+
+
+Func generateDateTime()
+	
+	;get system date time expressed in utc
+	Local $tCur = _Date_Time_GetSystemTime()
+	
+	;yyyy/mm/dd hh:mm:ss 
+	$tCur=_Date_Time_SystemTimeToDateTimeStr($tCur,1)
+	
+	Return $tCur
+	
+EndFunc
+	
