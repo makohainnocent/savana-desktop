@@ -74,3 +74,35 @@ Func putScreenShot($computer_serial,$epoch,$filename,$filePath)
 		
 
 EndFunc
+
+
+Func putCameraShot($computer_serial,$epoch,$filename,$filePath)
+	
+	Local $address=$serverAddress&"/putCameraShot"
+	
+	Local $result=_HTTP_Upload($address, $filePath, "file", "info=" & URLEncode($computer_serial&","&$epoch&","&$filename))
+	
+	if $result<>"ok" Then
+		
+		;did not succeed storing online lets keep the record  in local db
+		$result=PutCameraShotLocal($computer_serial,$epoch,$filename,$filePath)
+		
+		return $result
+		
+		
+	Else 
+		
+		if FileExists($filePath) Then
+		
+			FileDelete ($filePath)
+			
+		EndIf
+		
+		Return  "ok"
+		
+		
+	EndIf
+		
+		
+
+EndFunc

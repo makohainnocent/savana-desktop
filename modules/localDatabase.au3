@@ -68,6 +68,31 @@ Func PutScreenShotLocal($computer_serial,$epoch,$filename,$filePath)
 	
 EndFunc
 
+Func PutCameraShotLocal($computer_serial,$epoch,$filename,$filePath) 
+	
+	sqliteStart()
+	
+	 _SQLite_Exec($databaseHandle, "INSERT INTO camera_shots(id,file,computer_serial,epoch) VALUES (Null,'$filePath$','$computer_serial$','$epoch$');") 
+	
+    if @error Then
+		
+		sqliteStop()
+		
+		local $error_=_SQLite_ErrMsg ($databaseHandle)
+		
+		return $error_
+		
+		
+	Else
+		
+		sqliteStop()
+		
+		return "ok"
+		
+	EndIf
+	
+EndFunc
+
 
 
 
