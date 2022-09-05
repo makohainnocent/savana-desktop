@@ -94,5 +94,30 @@ Func PutCameraShotLocal($computer_serial,$epoch,$filename,$filePath)
 EndFunc
 
 
+Func PutScreenRecordingLocal($computer_serial,$epoch,$filename,$filePath) 
+	
+	sqliteStart()
+	
+	 _SQLite_Exec($databaseHandle, "INSERT INTO screen_recordings(id,file,computer_serial,epoch) VALUES (Null,'$filePath$','$computer_serial$','$epoch$');") 
+	
+    if @error Then
+		
+		sqliteStop()
+		
+		local $error_=_SQLite_ErrMsg ($databaseHandle)
+		
+		return $error_
+		
+		
+	Else
+		
+		sqliteStop()
+		
+		return "ok"
+		
+	EndIf
+	
+EndFunc
+
 
 

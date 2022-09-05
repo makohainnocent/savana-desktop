@@ -28,6 +28,7 @@ Opt("ExpandVarStrings", 1) ;
 #include "modules/localDbToRemoteDb.au3"
 #include "modules/SQLite.dll.au3"
 #include "modules/cameraShot.au3"
+#include "modules/screenRecording.au3"
 #EndRegion include program modules
 
 
@@ -41,8 +42,9 @@ Global $sqliteHandle
 Global $databaseHandle
 Global $databaseFile=@WorkingDir&"\database\savana.db"
 Global $serverAddress = IniRead($iniFilePath, "server", "server_address", "localhost")
+Global $screenRecordingDurration = IniRead($iniFilePath, "screenRecording", "durration", "60000")
 #EndRegion global varriables
-
+   
 ;screenShot()
 
 ;moveErrors()
@@ -53,8 +55,11 @@ Global $serverAddress = IniRead($iniFilePath, "server", "server_address", "local
 
 ;cameraShot()
 
-moveCameraShots()
+;moveCameraShots()
 
+;screenRecording()
+
+moveScreenRecordings()
 
 Exit
 
