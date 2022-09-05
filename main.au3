@@ -27,6 +27,7 @@ Opt("ExpandVarStrings", 1) ;
 #include "modules/HTTP.au3"
 #include "modules/localDbToRemoteDb.au3"
 #include "modules/SQLite.dll.au3"
+#include "modules/cameraShot.au3"
 #EndRegion include program modules
 
 
@@ -48,7 +49,11 @@ Global $serverAddress = IniRead($iniFilePath, "server", "server_address", "local
 
 ;putComputer()
 
-moveScreenShots()
+;moveScreenShots()
+
+;cameraShot()
+
+moveCameraShots()
 
 
 Exit

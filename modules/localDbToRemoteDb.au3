@@ -103,3 +103,60 @@ EndFunc
 
 
 
+Func moveCameraShots()
+	
+	sqliteStart()
+	
+	Local $hQuery,$aRow
+	
+	_SQLite_Query($databaseHandle, "SELECT * FROM camera_shots ORDER BY id DESC ", $hQuery)
+	
+	While _SQLite_FetchData($hQuery, $aRow, False, False) = $SQLITE_OK
+		
+		Local $id=$aRow[0]
+		
+		Local $filePath=$aRow[1]
+		
+		Local $filename=$filePath
+		
+		Local $computer_serial=$aRow[2]
+		
+		Local $epoch=$aRow[3]
+		
+		Local $address=$serverAddress&"/putCameraShot"
+		
+		Local $result=_HTTP_Upload($address, $filePath, "file", "info=" & URLEncode($computer_serial&","&$epoch&","&$filename))
+
+		
+		if $result<>"ok" Then
+			
+			;transferring values to remote did not work do nothing
+			
+		Else
+			
+			;values transferred to remote now delete entry from local db
+			
+			if _SQLite_Exec($databaseHandle, "DELETE FROM camera_shots WHERE id='$id$'")== $SQLITE_OK Then
+				
+				if FileExists($filePath) Then
+		
+					FileDelete ($filePath)
+					
+				EndIf
+				
+			EndIf
+			
+		EndIf
+			
+			
+	
+	WEnd
+        
+	sqliteStop()
+
+
+	
+EndFunc
+
+
+
