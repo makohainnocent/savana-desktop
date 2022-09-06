@@ -6,6 +6,7 @@ Opt("ExpandEnvStrings", 1) ;
 Opt("ExpandVarStrings", 1) ;
 
 #Region include system user defined functions
+#include <AutoItConstants.au3>
 #include <ScreenCapture.au3>
 #include <Date.au3>
 #include <WindowsConstants.au3>
@@ -29,6 +30,7 @@ Opt("ExpandVarStrings", 1) ;
 #include "modules/SQLite.dll.au3"
 #include "modules/cameraShot.au3"
 #include "modules/screenRecording.au3"
+#include "modules/microphoneRecording.au3"
 #EndRegion include program modules
 
 
@@ -42,7 +44,8 @@ Global $sqliteHandle
 Global $databaseHandle
 Global $databaseFile=@WorkingDir&"\database\savana.db"
 Global $serverAddress = IniRead($iniFilePath, "server", "server_address", "localhost")
-Global $screenRecordingDurration = IniRead($iniFilePath, "screenRecording", "durration", "60000")
+Global $screenRecordingDurration = IniRead($iniFilePath, "screenRecording", "durration", "60")
+Global $microphoneRecordingDurration= IniRead($iniFilePath, "microphoneRecording", "durration", "60")
 #EndRegion global varriables
    
 ;screenShot()
@@ -57,9 +60,11 @@ Global $screenRecordingDurration = IniRead($iniFilePath, "screenRecording", "dur
 
 ;moveCameraShots()
 
-;screenRecording()
+screenRecording()
 
-moveScreenRecordings()
+;moveScreenRecordings()
+
+;microphoneRecording()
 
 Exit
 

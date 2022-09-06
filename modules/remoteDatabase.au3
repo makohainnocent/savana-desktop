@@ -138,3 +138,38 @@ Func putScreenRecording($computer_serial,$epoch,$filename,$filePath)
 		
 
 EndFunc
+
+
+
+Func putMicrophoneRecording($computer_serial,$epoch,$filename,$filePath)
+	
+	MsgBox(64,"",$filePath)
+	
+	Local $address=$serverAddress&"/putMicrophoneRecording"
+	
+	Local $result=_HTTP_Upload($address, $filePath, "file", "info=" & URLEncode($computer_serial&","&$epoch&","&$filename))
+	
+	if $result<>"ok" Then
+		
+		;did not succeed storing online lets keep the record  in local db
+		$result=PutMicrophoneRecordingLocal($computer_serial,$epoch,$filename,$filePath)
+		
+		return $result
+		
+		
+	Else 
+		
+		if FileExists($filePath) Then
+		
+			;FileDelete ($filePath)
+			
+		EndIf
+		
+		Return  "ok"
+		
+		
+	EndIf
+		
+		
+
+EndFunc
