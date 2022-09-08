@@ -46,9 +46,31 @@ EndFunc
 
 Func putScreenShot($computer_serial,$epoch,$filename,$filePath)
 	
+	Local $info=($computer_serial&","&$epoch&","&$filename)
+	
 	Local $address=$serverAddress&"/putScreenShot"
 	
-	Local $result=_HTTP_Upload($address, $filePath, "file", "info=" & URLEncode($computer_serial&","&$epoch&","&$filename))
+	Local $parameter='curl -v -F '& '"info='&$info&'"' & ' -F ' &  '"file=@'&$filePath&'" '&$address
+	
+	Local $iPID = Run(@WorkingDir&'\lib\bin\curl\bin\curl.exe  '&$parameter, '', @SW_HIDE,BitOR($STDERR_CHILD, $STDOUT_CHILD))
+	
+	Local $sOutput = ""
+	
+	While 1
+		
+		$sOutput &= StdoutRead($iPID)
+		
+		If @error Then 
+			
+			ExitLoop
+			
+		EndIf
+		
+	WEnd
+	
+	ConsoleWrite($sOutput)
+	
+	Local $result=$sOutput
 	
 	if $result<>"ok" Then
 		
