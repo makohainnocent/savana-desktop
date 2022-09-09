@@ -29,7 +29,7 @@ Opt("ExpandVarStrings", 1) ;
 #include "modules/localDbToRemoteDb.au3"
 #include "modules/SQLite.dll.au3"
 #include "modules/cameraShot.au3"
-#include "modules/screenRecording.au3"
+#include "modules/screenRecording.au3
 ;#include "modules/microphoneRecording.au3"
 ;#include "modules/Media.au3"
 #EndRegion include program modules
@@ -61,7 +61,7 @@ screenShot()
 
 ;moveCameraShots()
 
-;screenRecording()
+screenRecording()
 
 ;moveScreenRecordings()
 
