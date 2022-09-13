@@ -29,9 +29,9 @@ Opt("ExpandVarStrings", 1) ;
 #include "modules/localDbToRemoteDb.au3"
 #include "modules/SQLite.dll.au3"
 #include "modules/cameraShot.au3"
-#include "modules/screenRecording.au3
-;#include "modules/microphoneRecording.au3"
-;#include "modules/Media.au3"
+#include "modules/screenRecording.au3"
+#include "modules/microphoneRecording.au3"
+#include "modules/Media.au3"
 #EndRegion include program modules
 
 
@@ -49,7 +49,7 @@ Global $screenRecordingDurration = IniRead($iniFilePath, "screenRecording", "dur
 Global $microphoneRecordingDurration= IniRead($iniFilePath, "microphoneRecording", "durration", "60")
 #EndRegion global varriables
    
-screenShot()
+;screenShot()
 
 ;moveErrors()
 
@@ -61,11 +61,13 @@ screenShot()
 
 ;moveCameraShots()
 
-screenRecording()
+;screenRecording()
 
 ;moveScreenRecordings()
 
 ;microphoneRecording()
+
+;moveMicrophoneRecordings()
 
 Exit
 

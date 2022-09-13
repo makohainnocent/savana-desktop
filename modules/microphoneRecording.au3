@@ -1,5 +1,3 @@
-
-
 Func microphoneRecording()
 	
 	Local $epoch=generateDateTime()
@@ -16,28 +14,38 @@ Func microphoneRecording()
 		
 	EndIf
 	
+	$Media=_MediaCreate(6)
 	
-	Local $exitCode = RunWait(@WorkingDir&"\lib\bin\makohaAudio.exe "&$durration&" "&$filePath, "", @SW_HIDE)
+	_MediaRecord($Media)
 	
-	MsgBox(64,"",$exitCode)
-
-	If $exitCode<>0 Then
+	sleep(($durration)*1000)
+	
+	_MediaStop($Media)
+	
+	If @error Then
 		
 		_MediaClose($Media)
 		
-		handleErrors("microphoneRecording", $exitCode)
+		handleErrors("microphoneRecording", @error)
 		
-		Return False
+		Return
 	
-	EndIf
+	Else
 
-    sleep(5000)
+		_MediaSave($Media,$filePath)
 	
-	putMicrophoneRecording($computer_serial,$epoch,$filename,$filePath)
-
-	if @error then 
+	
+		_MediaClose($Media)
 		
-		;handleErrors("microphoneRecording", @error)
+		
+		putMicrophoneRecording($computer_serial,$epoch,$filename,$filePath)
+
+		if @error then 
+		
+			handleErrors("microphoneRecording", @error)
+		
+		EndIf
+	
 		
 	EndIf
 	

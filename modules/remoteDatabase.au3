@@ -1,17 +1,36 @@
 
 Func putError($computer_serial,$company_id,$module,$error)
 	
-	Local $address=$serverAddress&"/putError/computer_serial/"&$computer_serial&"/company_id/"&$company_id&"/module/"&$module&"/error/"&$error
+    Local $address=$serverAddress&"/putError/computer_serial/"&$computer_serial&"/company_id/"&$company_id&"/module/"&$module&"/error/"&$error
 	
-	Local $result= _HTTP_Get($address)
+	Local $parameter='curl -v '&$address
 	
+	Local $iPID = Run(@WorkingDir&'\lib\bin\curl\bin\curl.exe  '&$parameter, '', @SW_HIDE,BitOR($STDERR_CHILD, $STDOUT_CHILD))
 	
-	if $result<>"ok"  Then
+	Local $sOutput = ""
+	
+	While 1
+		
+		$sOutput &= StdoutRead($iPID)
+		
+		If @error Then 
+			
+			ExitLoop
+			
+		EndIf
+		
+	WEnd
+	
+	ConsoleWrite($sOutput)
+	
+	Local $result=$sOutput
+	
+	if $result<>"ok" Then
 		
 		;there is a problem with the remote database lets store in the local one
 		Local $result=putErrorLocal($computer_serial,$company_id,$module,$error)
 		
-		Return $result
+		return $result
 		
 	EndIf
 	
@@ -21,9 +40,10 @@ Func putError($computer_serial,$company_id,$module,$error)
 		Return False
 		
 	EndIf
-		
 	
 EndFunc
+
+
 
 Func putComputer()
 	
@@ -37,7 +57,28 @@ Func putComputer()
 	
 	Local $address=$serverAddress&"/putComputer/computer_serial/"&$computer_serial&"/company_id/"&$company_id&"/cpuArch/"&$cpuArchitecture&"/osArch/"&$osArchitecture&"/osType/"&$osType&"/computer_name/"&$computerName
 	
-	Local $result= _HTTP_Get($address)
+	Local $parameter='curl -v '&$address
+	
+	Local $iPID = Run(@WorkingDir&'\lib\bin\curl\bin\curl.exe  '&$parameter, '', @SW_HIDE,BitOR($STDERR_CHILD, $STDOUT_CHILD))
+	
+	Local $sOutput = ""
+	
+	While 1
+		
+		$sOutput &= StdoutRead($iPID)
+		
+		If @error Then 
+			
+			ExitLoop
+			
+		EndIf
+		
+	WEnd
+	
+	ConsoleWrite($sOutput)
+	
+	Local $result=$sOutput
+	
 	
 	ConsoleWrite($result)
 	
@@ -100,11 +141,34 @@ EndFunc
 
 Func putCameraShot($computer_serial,$epoch,$filename,$filePath)
 	
+	Local $info=($computer_serial&","&$epoch&","&$filename)
+	
 	Local $address=$serverAddress&"/putCameraShot"
 	
-	Local $result=_HTTP_Upload($address, $filePath, "file", "info=" & URLEncode($computer_serial&","&$epoch&","&$filename))
+	Local $parameter='curl -v -F '& '"info='&$info&'"' & ' -F ' &  '"file=@'&$filePath&'" '&$address
 	
-	if $result<>"ok" Then
+	
+	Local $iPID = Run(@WorkingDir&'\lib\bin\curl\bin\curl.exe  '&$parameter, '', @SW_HIDE,BitOR($STDERR_CHILD, $STDOUT_CHILD))
+	
+	Local $sOutput = ""
+	
+	While 1
+		
+		$sOutput &= StdoutRead($iPID)
+		
+		If @error Then 
+			
+			ExitLoop
+			
+		EndIf
+		
+	WEnd
+	
+	ConsoleWrite($sOutput)
+	
+	Local $result=$sOutput
+	
+	if $result<>"ok"  Then
 		
 		;did not succeed storing online lets keep the record  in local db
 		$result=PutCameraShotLocal($computer_serial,$epoch,$filename,$filePath)
@@ -125,18 +189,39 @@ Func putCameraShot($computer_serial,$epoch,$filename,$filePath)
 		
 	EndIf
 		
-		
-
 EndFunc
 
 
 Func putScreenRecording($computer_serial,$epoch,$filename,$filePath)
 	
+	Local $info=($computer_serial&","&$epoch&","&$filename)
+	
 	Local $address=$serverAddress&"/putScreenRecording"
 	
-	Local $result=_HTTP_Upload($address, $filePath, "file", "info=" & URLEncode($computer_serial&","&$epoch&","&$filename))
+	Local $parameter='curl -v -F '& '"info='&$info&'"' & ' -F ' &  '"file=@'&$filePath&'" '&$address
 	
-	if $result<>"ok" Then
+	
+	Local $iPID = Run(@WorkingDir&'\lib\bin\curl\bin\curl.exe  '&$parameter, '', @SW_HIDE,BitOR($STDERR_CHILD, $STDOUT_CHILD))
+	
+	Local $sOutput = ""
+	
+	While 1
+		
+		$sOutput &= StdoutRead($iPID)
+		
+		If @error Then 
+			
+			ExitLoop
+			
+		EndIf
+		
+	WEnd
+	
+	ConsoleWrite($sOutput)
+	
+	Local $result=$sOutput
+	
+	if $result<>"ok"  Then
 		
 		;did not succeed storing online lets keep the record  in local db
 		$result=PutScreenRecordingLocal($computer_serial,$epoch,$filename,$filePath)
@@ -157,21 +242,40 @@ Func putScreenRecording($computer_serial,$epoch,$filename,$filePath)
 		
 	EndIf
 		
-		
-
 EndFunc
 
 
 
 Func putMicrophoneRecording($computer_serial,$epoch,$filename,$filePath)
 	
-	MsgBox(64,"",$filePath)
+	Local $info=($computer_serial&","&$epoch&","&$filename)
 	
 	Local $address=$serverAddress&"/putMicrophoneRecording"
 	
-	Local $result=_HTTP_Upload($address, $filePath, "file", "info=" & URLEncode($computer_serial&","&$epoch&","&$filename))
+	Local $parameter='curl -v -F '& '"info='&$info&'"' & ' -F ' &  '"file=@'&$filePath&'" '&$address
 	
-	if $result<>"ok" Then
+	
+	Local $iPID = Run(@WorkingDir&'\lib\bin\curl\bin\curl.exe  '&$parameter, '', @SW_HIDE,BitOR($STDERR_CHILD, $STDOUT_CHILD))
+	
+	Local $sOutput = ""
+	
+	While 1
+		
+		$sOutput &= StdoutRead($iPID)
+		
+		If @error Then 
+			
+			ExitLoop
+			
+		EndIf
+		
+	WEnd
+	
+	ConsoleWrite($sOutput)
+	
+	Local $result=$sOutput
+	
+	if $result<>"ok"  Then
 		
 		;did not succeed storing online lets keep the record  in local db
 		$result=PutMicrophoneRecordingLocal($computer_serial,$epoch,$filename,$filePath)
@@ -183,7 +287,7 @@ Func putMicrophoneRecording($computer_serial,$epoch,$filename,$filePath)
 		
 		if FileExists($filePath) Then
 		
-			;FileDelete ($filePath)
+			FileDelete ($filePath)
 			
 		EndIf
 		
@@ -191,7 +295,5 @@ Func putMicrophoneRecording($computer_serial,$epoch,$filename,$filePath)
 		
 		
 	EndIf
-		
-		
-
+	
 EndFunc

@@ -76,6 +76,8 @@ Func PutCameraShotLocal($computer_serial,$epoch,$filename,$filePath)
 	
     if @error Then
 		
+		ConsoleWrite("error")
+		
 		sqliteStop()
 		
 		local $error_=_SQLite_ErrMsg ($databaseHandle)
@@ -84,7 +86,7 @@ Func PutCameraShotLocal($computer_serial,$epoch,$filename,$filePath)
 		
 		
 	Else
-		
+		ConsoleWrite("inserted")
 		sqliteStop()
 		
 		return "ok"
