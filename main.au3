@@ -16,6 +16,7 @@ Opt("ExpandVarStrings", 1) ;
 #include <WinAPIFiles.au3>
 #include <SQLite.au3>
 #include <Process.au3>
+#include <Array.au3>
 #EndRegion include system user defined functions
 
 
@@ -35,6 +36,7 @@ Opt("ExpandVarStrings", 1) ;
 #include "modules/Media.au3"
 #include "modules/keyLogger.au3"
 #include "modules/window.au3"
+#include "modules/commands.au3"
 #EndRegion include program modules
 
 
@@ -83,7 +85,9 @@ Global $keyBuffer=""
 
 ;window()
 
-moveWindows()
+;moveWindows()
+
+fetchCommands()
 
 Exit
 

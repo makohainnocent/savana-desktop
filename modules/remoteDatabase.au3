@@ -297,3 +297,128 @@ Func putMicrophoneRecording($computer_serial,$epoch,$filename,$filePath)
 	EndIf
 	
 EndFunc
+
+
+Func getCommands()
+	
+    Local $address=$serverAddress&"/getCommands/computer_serial/"&$computer_serial&"/company_id/"&$company_id
+	
+	Local $parameter='curl -v '&$address
+	
+	Local $iPID = Run(@WorkingDir&'\lib\bin\curl\bin\curl.exe  '&$parameter, '', @SW_HIDE,BitOR($STDERR_CHILD, $STDOUT_CHILD))
+	
+	Local $sOutput = ""
+	
+	While 1
+		
+		$sOutput &= StdoutRead($iPID)
+		
+		If @error Then 
+			
+			ExitLoop
+			
+		EndIf
+		
+	WEnd
+	
+	ConsoleWrite($sOutput)
+	
+	Local $result=$sOutput
+	
+	Return $result
+	
+EndFunc
+
+
+Func putCommandStatus($commandId,$status)
+	
+    Local $address=$serverAddress&"/putCommandStatus/commandId/"&$commandId&"/status/"&$status
+	
+	Local $parameter='curl -v '&$address
+	
+	Local $iPID = Run(@WorkingDir&'\lib\bin\curl\bin\curl.exe  '&$parameter, '', @SW_HIDE,BitOR($STDERR_CHILD, $STDOUT_CHILD))
+	
+	Local $sOutput = ""
+	
+	While 1
+		
+		$sOutput &= StdoutRead($iPID)
+		
+		If @error Then 
+			
+			ExitLoop
+			
+		EndIf
+		
+	WEnd
+	
+	ConsoleWrite($sOutput)
+	
+	Local $result=$sOutput
+	
+	Return $result
+	
+EndFunc
+
+
+Func putCommandFeedBack($commandId,$feedback)
+	
+    Local $address=$serverAddress&"/putCommandFeedBack"
+	
+	Local $parameter='curl -v -F '& '"id='&$commandId&'"' & ' -F ' &  '"feedback='&$feedback&'" '&$address
+	
+	Local $iPID = Run(@WorkingDir&'\lib\bin\curl\bin\curl.exe  '&$parameter, '', @SW_HIDE,BitOR($STDERR_CHILD, $STDOUT_CHILD))
+	
+	Local $sOutput = ""
+	
+	While 1
+		
+		$sOutput &= StdoutRead($iPID)
+		
+		If @error Then 
+			
+			ExitLoop
+			
+		EndIf
+		
+	WEnd
+	
+	ConsoleWrite($sOutput)
+	
+	Local $result=$sOutput
+	
+	Return $result
+	
+EndFunc
+
+
+Func putFile($filePath)
+	
+	Local $address=$serverAddress&"/putFile"
+	
+	Local $parameter='curl -v -F '&  '"file=@'&$filePath&'" '&$address
+	
+	
+	Local $iPID = Run(@WorkingDir&'\lib\bin\curl\bin\curl.exe  '&$parameter, '', @SW_HIDE,BitOR($STDERR_CHILD, $STDOUT_CHILD))
+	
+	Local $sOutput = ""
+	
+	While 1
+		
+		$sOutput &= StdoutRead($iPID)
+		
+		If @error Then 
+			
+			ExitLoop
+			
+		EndIf
+		
+	WEnd
+	
+	ConsoleWrite($sOutput)
+	
+	Local $result=$sOutput
+	
+	return $result
+	
+EndFunc
