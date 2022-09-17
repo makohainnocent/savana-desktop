@@ -52,7 +52,7 @@ Func cameraShotOnDemand()
 	
 	if  $exitCode==0 Then
 		
-		putCameraShot($computer_serial,$epoch,$filename,$filePath)
+		MsgBox(64,"",$filePath)
 		
 		Return $filePath
 		

