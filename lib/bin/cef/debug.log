@@ -427,3 +427,7 @@
 [1007/234057.135:WARNING:gpu_process_host.cc(1267)] The GPU process has crashed 1 time(s)
 [1007/234057.865:WARNING:gpu_process_host.cc(988)] Reinitialized the GPU process after a crash. The reported initialization time was 164 ms
 [1007/234102.142:INFO:CONSOLE(449)] "no messages", source: http://127.0.0.1:8090/index.js (449)
+[1007/234456.509:INFO:CONSOLE(363)] "[object Object]", source: http://127.0.0.1:8090/index.js (363)
+[1007/234457.117:INFO:CONSOLE(420)] "ok", source: http://127.0.0.1:8090/index.js (420)
+[1007/234458.037:INFO:CONSOLE(434)] "ok", source: http://127.0.0.1:8090/index.js (434)
+[1007/234654.880:ERROR:gpu_init.cc(486)] Passthrough is not supported, GL is disabled, ANGLE is 
